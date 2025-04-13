@@ -2,6 +2,9 @@
 
 This is Spring boot application using h2 database.
 
+## Pending
+ - [ ] Unit Tests
+
 ## Authentication
 
 Basic authentication is used. Following credentials can be used for testing locally:

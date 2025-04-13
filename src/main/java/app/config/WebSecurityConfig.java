@@ -11,6 +11,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * TODO:
+ * 1.Use DB to store user details
+ * 2. Fix CORS
+ * 3. Fix CSRF
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
