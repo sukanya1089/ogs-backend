@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "c68cb712-23d7-4128-b770-516de020988f",
+		"name": "Offshore Ground Sampling",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. List Locations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/locations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"locations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Statistics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/samples/statistics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"samples",
+						"statistics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. List all Samples",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/samples",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"samples"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Create Sample for North Sea",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"location\": {\n        \"id\": \"1\"\n    },\n    \"depth\": \"100\",\n    \"dateCollected\":\"2025-01-01\",\n    \"unitWeight\":\"50\",\n    \"waterContent\":\"60\",\n    \"shearStrength\":\"70\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/samples",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"samples"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Update Sample for North Sea",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"depth\": \"200\",\n    \"dateCollected\":\"2025-01-01\",\n    \"unitWeight\":\"200\",\n    \"waterContent\":\"200\",\n    \"shearStrength\":\"200\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/samples/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"samples",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Delete Sample for North Sea",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"depth\": \"200\",\n    \"dateCollected\":\"2025-01-01\",\n    \"unitWeight\":\"200\",\n    \"waterContent\":\"200\",\n    \"shearStrength\":\"200\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/samples/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"samples",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "password",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "user",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
