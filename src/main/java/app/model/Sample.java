@@ -1,19 +1,11 @@
 package app.model;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
-@Entity
 public class Sample {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // TODO: UUID might be better to prevent any attacks based on DB seq
     private Long id;
-
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(nullable=false, updatable=false)
-    private Location location;
-
+    private String location;
     private LocalDate dateCollected;
     private double depth;
     private double unitWeight;     // in kN/m3
@@ -28,11 +20,11 @@ public class Sample {
         this.id = id;
     }
 
-    public Location getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 

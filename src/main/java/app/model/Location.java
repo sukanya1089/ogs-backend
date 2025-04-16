@@ -1,12 +1,8 @@
 package app.model;
 
 
-import jakarta.persistence.*;
-
-@Entity
 public class Location {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // TODO: Exposing internal ID is bad practice.
     private Long id;
 
     private String name;

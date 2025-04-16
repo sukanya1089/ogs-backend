@@ -1,7 +1,7 @@
 package app.controller;
 
-import app.model.Location;
 import app.model.Sample;
+import app.model.Statistics;
 import app.repository.SampleRepository;
 import app.repository.entity.LocationEntity;
 import app.repository.entity.SampleEntity;
@@ -20,22 +20,26 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/samples")
 public class SampleController {
 
-    @Autowired
-    private SampleRepository sampleRepo;
+    private final SampleRepository sampleRepo;
+
+    private final LocationCache locationCache;
+
+    private final SampleService sampleService;
 
     @Autowired
-    private LocationCache locationCache;
+    public SampleController(SampleRepository sampleRepo, LocationCache locationCache, SampleService sampleService) {
+        this.sampleRepo = sampleRepo;
+        this.locationCache = locationCache;
+        this.sampleService = sampleService;
+    }
 
-    @Autowired
-    private SampleService sampleService;
-
+    // TODO: Support filtering on location
     @GetMapping
     public List<Sample> getAllSamples() {
         return sampleRepo.findAll().stream().map(this::sampleFromSampleEntity).toList();
@@ -43,9 +47,8 @@ public class SampleController {
 
     @PostMapping
     public Sample addSample(@RequestBody Sample sample) {
-        LocationEntity location = Optional.ofNullable(sample.getLocation())
-                .map(Location::getId)
-                .map(locationCache::getLocation)
+       Optional.ofNullable(sample.getLocation())
+                .map(locationCache::getLocationByName)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Location not found"));
         if (sample.getId() != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id should not be provided");
@@ -74,21 +77,16 @@ public class SampleController {
         sampleRepo.deleteById(id);
     }
 
+    // TODO: Support filtering on location
     @GetMapping("/statistics")
-    public Map<String, Object> getStatistics() {
+    public Statistics getStatistics() {
         List<SampleEntity> allSamples = sampleRepo.findAll();
-        double avgWater = sampleService.calculateAverageWaterContent(allSamples);
-        List<SampleEntity> exceedingEntities = sampleService.getExceedingSamples(allSamples);
-        List<Sample> exceeding = exceedingEntities.stream().map(this::sampleFromSampleEntity).toList();
-        return Map.of(
-                "averageWaterContent", avgWater,
-                "samplesExceedingThreshold", exceeding.size()
-        );
+        return sampleService.getStatistics(allSamples);
     }
 
     public Sample sampleFromSampleEntity(SampleEntity sampleEntity) {
         Sample sample = new Sample();
-        sample.setLocation(LocationController.locationFromEntity(sampleEntity.getLocation()));
+        sample.setLocation(locationCache.getLocationById(sampleEntity.getLocationId()).map(LocationEntity::getName).orElse(null));
         sample.setId(sampleEntity.getId());
         sample.setDateCollected(sampleEntity.getDateCollected());
         sample.setDepth(sampleEntity.getDepth());
@@ -99,9 +97,9 @@ public class SampleController {
     }
 
     public SampleEntity sampleEntityFromSample(Sample sample) {
-        LocationEntity locationEntity = locationCache.getLocation(sample.getLocation().getId());
+        Optional<LocationEntity> locationEntity = locationCache.getLocationByName(sample.getLocation());
         SampleEntity sampleEntity = new SampleEntity();
-        sampleEntity.setLocation(locationEntity);
+        sampleEntity.setLocationId(locationEntity.map(LocationEntity::getId).orElse(null));
         sampleEntity.setId(sample.getId());
         sampleEntity.setDateCollected(sample.getDateCollected());
         sampleEntity.setDepth(sample.getDepth());

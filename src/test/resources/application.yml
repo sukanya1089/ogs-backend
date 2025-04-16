@@ -1,0 +1,4 @@
+threshold:
+  unitWeight: 25
+  waterContent: 100
+  shearStrength: 800

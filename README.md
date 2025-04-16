@@ -2,9 +2,6 @@
 
 This is Spring boot application using h2 database.
 
-## Pending
- - [ ] Unit Tests
-
 ## Authentication
 
 Basic authentication is used. Following credentials can be used for testing locally:
@@ -19,3 +16,7 @@ Basic authentication is used. Following credentials can be used for testing loca
 ## Testing Endpoints
 
 Use [Postman collection](./postman_collection.json) for testing endpoints
+
+
+## Improvements
+ - Commented with "TODO".

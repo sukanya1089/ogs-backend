@@ -1,5 +1,6 @@
 package app.service;
 
+import app.model.Statistics;
 import app.repository.entity.SampleEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,13 +11,13 @@ import java.util.List;
 public class SampleService {
 
     @Value("${threshold.unitWeight}")
-    private double thresholdUnitWeight;
+    double thresholdUnitWeight;
 
     @Value("${threshold.waterContent}")
-    private double thresholdWaterContent;
+    double thresholdWaterContent;
 
     @Value("${threshold.shearStrength}")
-    private double thresholdShearStrength;
+    double thresholdShearStrength;
 
     public double calculateAverageWaterContent(List<SampleEntity> samples) {
         return samples.stream()
@@ -25,11 +26,24 @@ public class SampleService {
                 .orElse(0);
     }
 
-    public List<SampleEntity> getExceedingSamples(List<SampleEntity> samples) {
-        return samples.stream().filter(s ->
-                s.getUnitWeight() > thresholdUnitWeight ||
-                        s.getWaterContent() > thresholdWaterContent ||
-                        s.getShearStrength() > thresholdShearStrength
-        ).toList();
+    public long calculateSamplesAboveUnitWeightThreshold(List<SampleEntity> samples) {
+        return samples.stream().filter(s -> s.getUnitWeight() > thresholdUnitWeight).count();
+    }
+
+    public long calculateSamplesAboveWaterContentThreshold(List<SampleEntity> samples) {
+        return samples.stream().filter(s -> s.getWaterContent() > thresholdWaterContent).count();
+    }
+
+    public long calculateSamplesAboveShearStrengthThreshold(List<SampleEntity> samples) {
+        return samples.stream().filter(s -> s.getShearStrength() > thresholdShearStrength).count();
+    }
+
+    public Statistics getStatistics(List<SampleEntity> samples) {
+        Statistics statistics = new Statistics();
+        statistics.setAverageWaterContent(calculateAverageWaterContent(samples));
+        statistics.setSamplesAboveUnitWeightThreshold(calculateSamplesAboveUnitWeightThreshold(samples));
+        statistics.setSamplesAboveShearStrengthThreshold(calculateSamplesAboveShearStrengthThreshold(samples));
+        statistics.setSamplesAboveWaterContentThreshold(calculateSamplesAboveWaterContentThreshold(samples));
+        return statistics;
     }
 }
