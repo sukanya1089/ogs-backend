@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "c68cb712-23d7-4128-b770-516de020988f",
+		"_postman_id": "d464c71a-08c5-4dd2-9e80-110b59cc7f9e",
 		"name": "Offshore Ground Sampling",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30346581"
 	},
 	"item": [
 		{
@@ -23,7 +24,31 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "1. List Locations",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/locations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"locations"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
 		},
 		{
 			"name": "2. Statistics",
@@ -44,7 +69,32 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "2. Statistics",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/samples/statistics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"samples",
+								"statistics"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
 		},
 		{
 			"name": "3. List all Samples",
@@ -64,7 +114,31 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "3. List all Samples",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/samples",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"samples"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
 		},
 		{
 			"name": "4. Create Sample for North Sea",
@@ -73,7 +147,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"location\": {\n        \"id\": \"1\"\n    },\n    \"depth\": \"100\",\n    \"dateCollected\":\"2025-01-01\",\n    \"unitWeight\":\"50\",\n    \"waterContent\":\"60\",\n    \"shearStrength\":\"70\"\n\n}",
+					"raw": "{\n    \"location\": \"North Sea\",\n    \"depth\": \"100\",\n    \"dateCollected\":\"2025-01-01\",\n    \"unitWeight\":\"50\",\n    \"waterContent\":\"60\",\n    \"shearStrength\":\"70\"\n\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -93,7 +167,40 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "4. Create Sample for North Sea",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\": \"North Sea\",\n    \"depth\": \"100\",\n    \"dateCollected\":\"2025-01-01\",\n    \"unitWeight\":\"50\",\n    \"waterContent\":\"60\",\n    \"shearStrength\":\"70\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/samples",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"samples"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
 		},
 		{
 			"name": "5. Update Sample for North Sea",
@@ -110,7 +217,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/samples/1",
+					"raw": "http://localhost:8080/api/samples/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -119,28 +226,53 @@
 					"path": [
 						"api",
 						"samples",
-						"1"
+						"3"
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "5. Update Sample for North Sea",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"depth\": \"200\",\n    \"dateCollected\":\"2025-01-01\",\n    \"unitWeight\":\"200\",\n    \"waterContent\":\"200\",\n    \"shearStrength\":\"200\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/samples/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"samples",
+								"3"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
 		},
 		{
 			"name": "6. Delete Sample for North Sea",
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"depth\": \"200\",\n    \"dateCollected\":\"2025-01-01\",\n    \"unitWeight\":\"200\",\n    \"waterContent\":\"200\",\n    \"shearStrength\":\"200\"\n\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://localhost:8080/api/samples/1",
+					"raw": "http://localhost:8080/api/samples/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -149,11 +281,45 @@
 					"path": [
 						"api",
 						"samples",
-						"1"
+						"2"
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "6. Delete Sample for North Sea",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"depth\": \"200\",\n    \"dateCollected\":\"2025-01-01\",\n    \"unitWeight\":\"200\",\n    \"waterContent\":\"200\",\n    \"shearStrength\":\"200\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/samples/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"samples",
+								"2"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
 		}
 	],
 	"auth": {
